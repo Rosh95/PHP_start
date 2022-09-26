@@ -35,12 +35,12 @@
                             <div class="panel-content">
                                 <div class="panel-content">
                                     <div class="form-group">
-                                        <form action="">
+                                        <form action="task_18_handler.php" enctype="multipart/form-data" method = 'post'>
                                             <div class="form-group">
                                                 <label class="form-label" for="simpleinput">Image</label>
-                                            <input type="file" id="simpleinput" class="form-control">
+                                            <input type="file" id="simpleinput" class="form-control" name = 'image'>
                                             </div>
-                                            <button class="btn btn-success mt-3">Submit</button>
+                                            <button class="btn btn-success mt-3" type = 'submit'>Submit</button>
                                         </form>
                                     </div>
                                 </div>
@@ -64,17 +64,19 @@
                             <div class="panel-content">
                                 <div class="panel-content image-gallery">
                                     <div class="row">
+                                    <?php
+                                    $pdo = new PDO('mysql:host=localhost;dbname=my_project', 'root', '');
+                                    $statement = $pdo->prepare('SELECT * FROM images');
+                                    $statement->execute();
+                                    $images = $statement->fetchAll(PDO::FETCH_ASSOC);
+                                    ?>
+                                    <?php foreach ($images as $image): ?>
                                         <div class="col-md-3 image">
-                                            <img src="img/demo/gallery/1.jpg">
+                                            <img src="uploads/<?php echo $image['image']; ?>" width=200px height=200px>
                                         </div>
+                                    <?php endforeach; ?>
 
-                                        <div class="col-md-3 image">
-                                            <img src="img/demo/gallery/2.jpg">
-                                        </div>
-
-                                        <div class="col-md-3 image">
-                                            <img src="img/demo/gallery/3.jpg">
-                                        </div>
+                                    
                                     </div>
                                 </div>
                             </div>

@@ -35,12 +35,12 @@
                             <div class="panel-content">
                                 <div class="panel-content">
                                     <div class="form-group">
-                                        <form action="">
+                                        <form action="task_19_handler.php" method = 'post' enctype="multipart/form-data">
                                             <div class="form-group">
                                                 <label class="form-label" for="simpleinput">Image</label>
-                                            <input type="file" id="simpleinput" class="form-control">
+                                            <input type="file" id="simpleinput" class="form-control" name = 'image'>
                                             </div>
-                                            <button class="btn btn-success mt-3">Submit</button>
+                                            <button class="btn btn-success mt-3" type = 'submit'>Submit</button>
                                         </form>
                                     </div>
                                 </div>
@@ -64,18 +64,20 @@
                             <div class="panel-content">
                                 <div class="panel-content image-gallery">
                                     <div class="row">
+                                    <?php
+                                    $pdo = new PDO('mysql:host=localhost;dbname=my_project', 'root', '');
+                                    $statement = $pdo->prepare('SELECT * FROM images');
+                                    $statement->execute();
+                                    $images = $statement->fetchAll(PDO::FETCH_ASSOC);
+                                    ?>
+                                    <?php foreach ($images as $image): ?>
                                         <div class="col-md-3 image">
-                                            <img src="img/demo/gallery/1.jpg">
-                                            <a class="btn btn-danger" href="#" onclick="confirm('Вы уверены?');">Удалить</a>
+                                           <img src="uploads/<?php echo $image['image']; ?>" width=200px height=200px  name='delete[]'>
+                                            <a class="btn btn-danger" href="task_19_delete.php?id=<?php echo $image[
+                                              'id'
+                                            ]; ?>"   onclick="confirm('Вы уверены?');">Удалить</a>
                                         </div>
-                                        <div class="col-md-3">
-                                            <img src="img/demo/gallery/2.jpg">
-                                            <a class="btn btn-danger" onclick="confirm('Вы уверены?');" href="#">Удалить</a>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <img src="img/demo/gallery/3.jpg">
-                                            <a class="btn btn-danger" onclick="confirm('Вы уверены?');" href="#">Удалить</a>
-                                        </div>
+                                        <?php endforeach; ?>
                                     </div>
                                 </div>
                             </div>

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,33 +19,26 @@
         <link rel="stylesheet" media="screen, print" href="css/fa-regular.css">
     </head>
     <body class="mod-bg-1 mod-nav-link ">
-        <main id="js-page-content" role="main" class="page-content">
-            <div class="col-md-6">
-                <div id="panel-1" class="panel">
-                    <div class="panel-hdr">
-                        <h2>
-                            Задание
-                        </h2>
-                        <div class="panel-toolbar">
-                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-collapse" data-toggle="tooltip" data-offset="0,10" data-original-title="Collapse"></button>
-                            <button class="btn btn-panel waves-effect waves-themed" data-action="panel-fullscreen" data-toggle="tooltip" data-offset="0,10" data-original-title="Fullscreen"></button>
-                        </div>
-                    </div>
-                    <div class="panel-container show">
-                        <div class="panel-content">
-                            <div class="panel-content">
-                                <div class="form-group">
-                                    <div class="alert alert-success fade show" role="alert">
-                                        Здравствуйте, ИМЯ_ПОЛЬЗОВАТЕЛЯ.
-                                    </div>
-                                    <a href="#" class="btn btn-info">Выйти</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+       
+<div class="container">
+    <div class="row">
+<div class="col-md">
+<?php if ($_SESSION['user']): ?>
+    <h2>Здравствуйте, <?php echo $_SESSION['user']['email']; ?></h2>
+    <?php else: ?>
+        <h2>Вы не авторизованы</h2>
+        <?php endif; ?>
+        <div>
+        <?php if ($_SESSION['user']): ?>
+            <a href="task_16_logout.php" class="btn btn-danger">Выйти</a>
+            <?php else: ?>
+                <a href="task_16.php" class="btn btn-info">Войти</a>
+        <?php endif; ?>
+        </div>
+</div>
+    </div>
+</div>     
+  </main>
         
 
         <script src="js/vendors.bundle.js"></script>
